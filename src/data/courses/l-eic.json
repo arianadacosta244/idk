@@ -1,0 +1,245 @@
+{
+  "id": "l-eic",
+  "name": "Licenciatura em Engenharia Informática e Computação",
+  "shortName": "L.EIC",
+  "units": [
+    {
+      "code": "L.EIC001",
+      "name": "Álgebra Linear e Geometria Analítica",
+      "ects": 4.5,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC002",
+      "name": "Análise Matemática I",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC004",
+      "name": "Fundamentos de Sistemas Computacionais",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC005",
+      "name": "Matemática Discreta",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC003",
+      "name": "Fundamentos da Programação",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "UP001",
+      "name": "Projeto UP",
+      "ects": 1.5,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC007",
+      "name": "Análise Matemática II",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC008",
+      "name": "Física I",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC006",
+      "name": "Arquitetura de Computadores",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC010",
+      "name": "Teoria da Computação",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC009",
+      "name": "Programação",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC011",
+      "name": "Algoritmos e Estruturas de Dados",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC012",
+      "name": "Bases de Dados",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC013",
+      "name": "Física II",
+      "ects": 4.5,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC015",
+      "name": "Sistemas Operativos",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC014",
+      "name": "Laboratório de Desenho e Teste de Software",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC-CT1",
+      "name": "Competências Transversais I",
+      "ects": 1.5,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC018",
+      "name": "Laboratório de Computadores",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC016",
+      "name": "Desenho de Algoritmos",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC017",
+      "name": "Engenharia de Software",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC020",
+      "name": "Métodos Estatísticos",
+      "ects": 4.5,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC019",
+      "name": "Linguagens e Tecnologias Web",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC-CT2",
+      "name": "Competências Transversais II",
+      "ects": 1.5,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC022",
+      "name": "Interação Pessoa Computador",
+      "ects": 4.5,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC023",
+      "name": "Laboratório de Bases de Dados e Aplicações Web",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC025",
+      "name": "Redes de Computadores",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC021",
+      "name": "Fundamentos de Segurança Informática",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC024",
+      "name": "Programação Funcional e em Lógica",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC-CT3",
+      "name": "Competências Transversais III",
+      "ects": 1.5,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EIC028",
+      "name": "Computação Paralela e Distribuída",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC026",
+      "name": "Compiladores",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC027",
+      "name": "Computação Gráfica",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC030",
+      "name": "Projeto Integrador",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EIC029",
+      "name": "Inteligência Artificial",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    }
+  ]
+}

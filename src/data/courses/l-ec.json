@@ -1,0 +1,238 @@
+{
+  "id": "l-ec",
+  "name": "Licenciatura em Engenharia Civil",
+  "shortName": "L.EC",
+  "units": [
+    {
+      "code": "L.EC001",
+      "name": "Álgebra",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EC002",
+      "name": "Análise Matemática 1",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EC003",
+      "name": "Computação",
+      "ects": 6,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EC004",
+      "name": "Desenho Técnico",
+      "ects": 7.5,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EC005",
+      "name": "História da Engenharia Civil",
+      "ects": 3,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "FEUP003",
+      "name": "Projeto FEUP",
+      "ects": 1.5,
+      "year": 1,
+      "semester": 1
+    },
+    {
+      "code": "L.EC007",
+      "name": "Análise Numérica",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EC009",
+      "name": "Mecânica 1",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EC010",
+      "name": "Topografia e Sistemas de Informação Geográfica",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EC006",
+      "name": "Análise Matemática 2",
+      "ects": 6,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EC008",
+      "name": "Física",
+      "ects": 4.5,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EC-CT1",
+      "name": "Competências Transversais",
+      "ects": 1.5,
+      "year": 1,
+      "semester": 2
+    },
+    {
+      "code": "L.EC012",
+      "name": "Mecânica 2",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EC015",
+      "name": "Geologia da Engenharia",
+      "ects": 4.5,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EC013",
+      "name": "Resistência dos Materiais 1",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EC014",
+      "name": "Arquitetura",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EC011",
+      "name": "Análise Matemática 3",
+      "ects": 6,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EC-CT2",
+      "name": "Competências Transversais",
+      "ects": 1.5,
+      "year": 2,
+      "semester": 1
+    },
+    {
+      "code": "L.EC016",
+      "name": "Probabilidades e Estatística",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EC020",
+      "name": "Planeamento do Território",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EC017",
+      "name": "Investigação Operacional",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EC018",
+      "name": "Resistência dos Materiais 2",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EC019",
+      "name": "Materiais de Construção",
+      "ects": 6,
+      "year": 2,
+      "semester": 2
+    },
+    {
+      "code": "L.EC022",
+      "name": "Física das Construções",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EC023",
+      "name": "Hidráulica 1",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EC021",
+      "name": "Teoria das Estruturas",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EC024",
+      "name": "Ambiente Urbano e Transportes",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EC025",
+      "name": "Vias de Comunicação",
+      "ects": 6,
+      "year": 3,
+      "semester": 1
+    },
+    {
+      "code": "L.EC028",
+      "name": "Hidráulica 2",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EC030",
+      "name": "Projeto Integrador",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EC027",
+      "name": "Tecnologia das Construções",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EC029",
+      "name": "Mecânica dos Solos",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    },
+    {
+      "code": "L.EC026",
+      "name": "Betão Estrutural",
+      "ects": 6,
+      "year": 3,
+      "semester": 2
+    }
+  ]
+}
