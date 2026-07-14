@@ -31,3 +31,11 @@ export function recentAcademicYears(current: string, count = 8): string[] {
   if (start === null) return [current]
   return Array.from({ length: count }, (_, i) => `${start - i}/${start - i + 1}`)
 }
+
+/** Estimativa do ano letivo atual a partir da data (letivo em PT corre ~set a jul). */
+export function currentAcademicYearGuess(date = new Date()): string {
+  const year = date.getFullYear()
+  const month = date.getMonth() // 0 = jan ... 11 = dez
+  const start = month >= 8 ? year : year - 1
+  return `${start}/${start + 1}`
+}

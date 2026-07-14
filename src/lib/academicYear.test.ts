@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   academicYearGap,
+  currentAcademicYearGuess,
   isValidAcademicYear,
   parseAcademicYearStart,
   recentAcademicYears,
@@ -59,5 +60,15 @@ describe('recentAcademicYears', () => {
 
   it('falls back to just the given value when invalid', () => {
     expect(recentAcademicYears('bad', 3)).toEqual(['bad'])
+  })
+})
+
+describe('currentAcademicYearGuess', () => {
+  it('is last-year/this-year before September', () => {
+    expect(currentAcademicYearGuess(new Date(2026, 6, 14))).toBe('2025/2026') // 14 Jul 2026
+  })
+
+  it('is this-year/next-year from September onward', () => {
+    expect(currentAcademicYearGuess(new Date(2026, 8, 1))).toBe('2026/2027') // 1 Sep 2026
   })
 })

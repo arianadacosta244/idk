@@ -4,26 +4,56 @@ import { CourseSelector } from './components/CourseSelector'
 import { UnitsTable } from './components/UnitsTable'
 import { StatCard } from './components/StatCard'
 import { Simulator } from './components/Simulator'
-import { ImprovementCard } from './components/ImprovementCard'
+import { MelhoriasCard } from './components/MelhoriasCard'
 import { ThemeToggle } from './components/ThemeToggle'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { useTheme } from './hooks/useTheme'
 import { completedEcts, type GradedUnit, roundCourseAverage, weightedAverage } from './lib/gpa'
+import { currentAcademicYearGuess, isValidAcademicYear, recentAcademicYears } from './lib/academicYear'
+import { emptyUnitRecord, type UnitRecord } from './lib/unitRecord'
 
 interface CourseState {
-  grades: Record<string, number | null>
+  records: Record<string, UnitRecord>
   target: number
   simFixed: Record<string, number | null>
-  currentYear: number | null
-  improved: Record<string, boolean>
+  melhoriaHypotheses: Record<string, number | null>
 }
 
 const emptyCourseState: CourseState = {
-  grades: {},
+  records: {},
   target: 14,
   simFixed: {},
-  currentYear: null,
-  improved: {},
+  melhoriaHypotheses: {},
+}
+
+/**
+ * Estado antigo (antes do ano letivo real e do alreadyImproved vitalício)
+ * guardava `grades`/`improved` separados. Migra para `records` sem perder as
+ * notas já preenchidas — o aluno só precisa de voltar a indicar o ano letivo.
+ */
+function migrateCourseState(raw: unknown): CourseState {
+  const r = (raw ?? {}) as Partial<CourseState> & {
+    grades?: Record<string, number | null>
+    improved?: Record<string, boolean>
+  }
+
+  if (r.records) {
+    return { ...emptyCourseState, ...r, records: r.records }
+  }
+
+  const records: Record<string, UnitRecord> = {}
+  if (r.grades) {
+    for (const [code, grade] of Object.entries(r.grades)) {
+      if (grade === null || grade === undefined) continue
+      records[code] = {
+        code,
+        grade,
+        academicYear: null,
+        alreadyImproved: r.improved?.[code] ?? false,
+      }
+    }
+  }
+  return { ...emptyCourseState, ...r, records }
 }
 
 function App() {
@@ -34,22 +64,32 @@ function App() {
   )
   const selectedCourse = lastCourseId ? (getCourse(lastCourseId) ?? null) : null
 
-  const [rawState, setRawState] = useLocalStorage<CourseState>(
+  const [currentAcademicYear, setCurrentAcademicYear] = useLocalStorage<string>(
+    'feup-media:current-academic-year',
+    currentAcademicYearGuess(),
+  )
+
+  const [rawState, setRawState] = useLocalStorage<unknown>(
     `feup-media:course:${selectedCourse?.id ?? 'none'}`,
     emptyCourseState,
   )
-  // Funde sempre com os valores por omissão: estado antigo em localStorage
-  // (de antes de um campo novo ser adicionado ao schema) não pode rebentar o app.
-  const state: CourseState = { ...emptyCourseState, ...rawState }
+  const state = migrateCourseState(rawState)
   function setState(updater: (s: CourseState) => CourseState) {
     setRawState(() => updater(state))
   }
 
+  function onChangeRecord(code: string, patch: Partial<UnitRecord>) {
+    setState((s) => {
+      const prev = s.records[code] ?? emptyUnitRecord(code)
+      return { ...s, records: { ...s.records, [code]: { ...prev, ...patch } } }
+    })
+  }
+
   const gradedUnits: GradedUnit[] = useMemo(
     () =>
-      selectedCourse?.units.map((u) => ({ ects: u.ects, grade: state.grades[u.code] ?? null })) ??
+      selectedCourse?.units.map((u) => ({ ects: u.ects, grade: state.records[u.code]?.grade ?? null })) ??
       [],
-    [selectedCourse, state.grades],
+    [selectedCourse, state.records],
   )
 
   const average = weightedAverage(gradedUnits)
@@ -59,29 +99,14 @@ function App() {
   const remainingUnits = useMemo(
     () =>
       selectedCourse?.units.filter((u) => {
-        const grade = state.grades[u.code] ?? null
+        const grade = state.records[u.code]?.grade ?? null
         // Não aprovada ainda (sem nota, ou reprovada e por repetir) conta como "por resolver".
         return grade === null || grade < 10
       }) ?? [],
-    [selectedCourse, state.grades],
+    [selectedCourse, state.records],
   )
 
-  const maxYear = useMemo(
-    () => (selectedCourse ? Math.max(...selectedCourse.units.map((u) => u.year)) : 1),
-    [selectedCourse],
-  )
-
-  const unitsForImprovement = useMemo(
-    () =>
-      selectedCourse?.units.map((u) => ({
-        code: u.code,
-        name: u.name,
-        ects: u.ects,
-        year: u.year,
-        grade: state.grades[u.code] ?? null,
-      })) ?? [],
-    [selectedCourse, state.grades],
-  )
+  const academicYearOptions = recentAcademicYears(currentAcademicYearGuess(), 8)
 
   return (
     <div className="min-h-screen">
@@ -102,14 +127,35 @@ function App() {
         </header>
 
         <section className="mb-6 rounded-2xl border border-primary/20 border-t-4 border-t-primary bg-white/70 p-4 dark:border-primary-light/20 dark:border-t-primary">
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-primary/80 dark:text-primary-light">
-            Curso
-          </h2>
-          <CourseSelector
-            courses={courses}
-            selected={selectedCourse}
-            onSelect={(course) => setLastCourseId(course.id)}
-          />
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+            <div className="flex-1">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-primary/80 dark:text-primary-light">
+                Curso
+              </h2>
+              <CourseSelector
+                courses={courses}
+                selected={selectedCourse}
+                onSelect={(course) => setLastCourseId(course.id)}
+              />
+            </div>
+            <div>
+              <label className="mb-3 block text-xs font-semibold uppercase tracking-wide text-primary/80 dark:text-primary-light">
+                Ano letivo atual <span className="text-bad">*</span>
+              </label>
+              <select
+                value={currentAcademicYear}
+                onChange={(e) => setCurrentAcademicYear(e.target.value)}
+                className="w-full rounded-xl border border-primary/20 bg-white px-3 py-2.5 text-sm text-stone-800
+                  outline-none focus:border-primary dark:border-primary-light/20 dark:bg-stone-800 dark:text-stone-100"
+              >
+                {academicYearOptions.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </section>
 
         {!selectedCourse && (
@@ -126,10 +172,9 @@ function App() {
               </h2>
               <UnitsTable
                 units={selectedCourse.units}
-                grades={state.grades}
-                onChangeGrade={(code, grade) =>
-                  setState((s) => ({ ...s, grades: { ...s.grades, [code]: grade } }))
-                }
+                records={state.records}
+                currentAcademicYear={currentAcademicYear || null}
+                onChangeRecord={onChangeRecord}
               />
             </section>
 
@@ -150,18 +195,27 @@ function App() {
 
             <section className="rounded-2xl border border-primary/20 border-t-4 border-t-primary bg-white/70 p-4 dark:border-primary-light/20 dark:border-t-primary">
               <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-primary/80 dark:text-primary-light">
-                UCs a melhorar
+                Melhorias
               </h2>
-              <ImprovementCard
-                units={unitsForImprovement}
-                maxYear={maxYear}
-                currentYear={state.currentYear}
-                onChangeYear={(currentYear) => setState((s) => ({ ...s, currentYear }))}
-                improved={state.improved}
-                onToggleImproved={(code, value) =>
-                  setState((s) => ({ ...s, improved: { ...s.improved, [code]: value } }))
-                }
-              />
+              {isValidAcademicYear(currentAcademicYear) ? (
+                <MelhoriasCard
+                  units={selectedCourse.units}
+                  records={state.records}
+                  currentAcademicYear={currentAcademicYear}
+                  target={state.target}
+                  hypotheses={state.melhoriaHypotheses}
+                  onChangeHypothesis={(code, grade) =>
+                    setState((s) => ({
+                      ...s,
+                      melhoriaHypotheses: { ...s.melhoriaHypotheses, [code]: grade },
+                    }))
+                  }
+                />
+              ) : (
+                <p className="text-sm text-stone-400">
+                  Define um ano letivo atual válido para veres as recomendações de melhoria.
+                </p>
+              )}
             </section>
 
             <section className="rounded-2xl border border-primary/20 border-t-4 border-t-primary bg-white/70 p-4 dark:border-primary-light/20 dark:border-t-primary">
